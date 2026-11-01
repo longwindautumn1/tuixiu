@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f2e9">
+<title>向往的日子 · 退休倒计时</title>
+<style>
+:root{--ink:#642323;--muted:#9b7770;--gold:#d6a64d;--paper:#fff5ef;--card:#fffdfa;--line:#f0d9cc;--sage:#f8e5dc;--shadow:0 18px 50px rgba(126,35,30,.11)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
+button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px 48px}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:34px 25px 28px;color:#fff;background:radial-gradient(circle at 88% 12%,rgba(255,214,139,.28),transparent 27%),linear-gradient(135deg,#8f171c 0%,#bd2528 52%,#dc6848 100%);box-shadow:var(--shadow)}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.14);border-radius:50%;width:290px;height:290px;right:-90px;top:-135px}.hero:after{width:210px;height:210px;right:-48px;top:-95px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:#ffe3c7}.hero h1{font-family:"Songti SC",STSong,serif;font-size:clamp(28px,6vw,40px);font-weight:500;letter-spacing:2px;margin:13px 0 8px}.hero p{font-size:14px;line-height:1.8;color:#ffebe0;margin:0;max-width:440px}
+.hero-mark{position:absolute;right:26px;bottom:22px;font-family:Georgia,serif;font-size:42px;color:rgba(255,226,174,.32)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;margin-top:17px;box-shadow:0 8px 28px rgba(48,65,54,.035)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.panel h2{font-size:16px;margin:0;font-weight:650}.sub{font-size:12px;color:var(--muted)}
+.person{padding:16px 0;border-top:1px solid var(--line)}.person:first-of-type{border-top:0;padding-top:0}.person-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.person-title{font-weight:650;font-size:14px}.pill{font-size:11px;background:#fff0e7;color:#a64a37;border-radius:99px;padding:5px 9px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 7px 2px}.field input{width:100%;border:1px solid var(--line);background:#fffefa;border-radius:12px;padding:12px 11px;color:var(--ink);outline:none}.field input:focus{border-color:#d98b72;box-shadow:0 0 0 3px #fff0e8}
+.actions{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:11px 15px;cursor:pointer;font-size:13px}.primary{background:linear-gradient(135deg,#a71920,#d33c32);color:white;box-shadow:0 5px 14px rgba(177,31,34,.18)}.secondary{background:#fff0e8;color:#a34232}.ghost{background:transparent;color:#a36b35;border:1px solid #ebcba9}.btn:active{transform:scale(.98)}
+.result{margin-top:18px;background:linear-gradient(180deg,#fffefa,#fff4ec);border:1px solid #efd6c5;border-radius:22px;padding:22px;position:relative;overflow:hidden}.result:after{content:"✿";position:absolute;right:18px;top:10px;color:#f3dfca;font-size:55px}
+.result-name{font-size:13px;color:var(--muted);position:relative;z-index:1}.big-number{font-family:Georgia,"Times New Roman",serif;font-size:clamp(48px,12vw,76px);line-height:1.12;color:#c13a2e;letter-spacing:-2px;margin:7px 0 4px;position:relative;z-index:1}.big-number small{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:15px;letter-spacing:0;color:var(--muted);margin-left:5px}.date-line{font-size:13px;color:var(--muted);position:relative;z-index:1}.progress-wrap{margin-top:18px}.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}.track{height:7px;background:#e9e7dd;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#e58a65,#c42b2b);border-radius:99px;transition:width .4s}.blessing{font-family:"Songti SC",STSong,serif;font-size:17px;line-height:1.85;color:#79352e;margin:18px 0 0;padding-top:15px;border-top:1px solid var(--line);position:relative;z-index:1}.blessing-label{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:10px;letter-spacing:2px;color:#bd8150;margin-bottom:4px}
+.milestone{margin-top:13px;border-radius:13px;background:#fff0df;padding:11px 13px;font-size:12px;color:#96502f;line-height:1.65;display:none}
+.empty{padding:20px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
+.footer{text-align:center;font-size:11px;line-height:1.8;color:#b08b80;margin:22px 10px 0}.footer strong{font-weight:600;color:#b34a38}
+@media(max-width:430px){.shell{padding:14px 12px 35px}.hero{padding:28px 21px 25px}.panel{padding:18px}.fields{gap:8px}.field input{padding:11px 9px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="hero">
+    <div class="eyebrow">A DATE TO LOOK FORWARD TO</div>
+    <h1>向往的日子</h1>
+    <p>把未来放在心上，也把今天过得闪闪发亮。<br>每过一天，理想生活就离我们更近一点。</p>
+    <div class="hero-mark">日</div>
+  </header>
+
+  <section class="panel">
+    <div class="panel-head"><h2>设定你的期待日期</h2><span class="sub">信息仅保存在当前设备</span></div>
+    <div class="person">
+      <div class="person-top"><span class="person-title">☀ 我的倒计时</span><span class="pill">必填</span></div>
+      <div class="fields">
+        <div class="field"><label for="name1">怎么称呼你（选填）</label><input id="name1" maxlength="12" placeholder="例如：自己"></div>
+        <div class="field"><label for="date1">期望退休日期</label><input id="date1" type="date"></div>
+      </div>
+    </div>
+    <div class="person" id="person2">
+      <div class="person-top"><span class="person-title">♡ 另一个重要的人</span><span class="pill">选填 · 配偶 / 好友</span></div>
+      <div class="fields">
+        <div class="field"><label for="name2">怎么称呼对方</label><input id="name2" maxlength="12" placeholder="例如：爱人"></div>
+        <div class="field"><label for="date2">对方期望退休日期</label><input id="date2" type="date"></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="save">保存并开启倒计时</button>
+      <button class="btn secondary" id="addToggle">隐藏第二个人</button>
+      <button class="btn ghost" id="reset">清除本机数据</button>
+    </div>
+    <div class="sub" style="margin-top:12px;line-height:1.7">日期可以随时修改。这里的退休日期是你自己期待的日子，不会根据年龄或政策自动推算。</div>
+  </section>
+
+  <section id="results">
+    <div class="empty">设定好日期后，你的专属倒计时就会出现在这里。<br>也可以把重要的人一起加进来，分享同一份期待。</div>
+  </section>
+  <div class="footer">愿你有期待的未来，也有享受当下的能力。<br><strong>来自 GPT 的祝福</strong><br>所有数据和祝福语均在本地运行，无需注册、无需后台。</div>
+</div>
+<script>
+(()=>{
+'use strict';
+const KEY='retirement_countdown_v1';
+const $=id=>document.getElementById(id);
+const dateInputIds=['date1','date2'];
+const nameInputIds=['name1','name2'];
+let showSecond=true;
+const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())};
+const fmt=d=>`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+const dayDiff=(a,b)=>Math.round((b-a)/86400000);
+const safeDate=s=>{if(!s)return null;const [y,m,d]=s.split('-').map(Number);const x=new Date(y,m-1,d);return x.getFullYear()===y&&x.getMonth()===m-1&&x.getDate()===d?x:null};
+
+// 通过短语词库与模板组合，运行时生成 2,000 条不同祝福，避免在文件中重复存放长文本。
+const starts=['愿你心里有光','愿往后的每一天','愿生活温柔待你','愿你始终保有热爱','愿你的脚步从容','愿平凡的日子里','愿你被美好环绕','愿未来的时光','愿你眼里有风景','愿每一个清晨'];
+const middles=['有喜欢的事可做','有牵挂的人可念','有说走就走的勇气','有安稳踏实的日常','有健康相伴的底气','有重新出发的自由','有三两好友常聚','有一方自在的小天地','有不慌不忙的心境','有值得期待的小确幸'];
+const endings=['把日子过成喜欢的模样。','把每一天都过得有滋有味。','让心中的愿望慢慢开花。','在自己的节奏里自在生长。','不辜负沿途的风景与温暖。','愿所有美好都如期而至。','让平淡的生活也闪闪发亮。','一直拥有选择生活的从容。','把幸福握在自己手里。','未来可期，今天也值得珍惜。'];
+const bridges=['也愿你','更愿你','愿这份美好陪着你','愿每一次出发都带来惊喜'];
+const wishes=[];
+for(let i=0;i<starts.length;i++)for(let j=0;j<middles.length;j++)for(let k=0;k<endings.length;k++)for(let b=0;b<2;b++){
+  const phrase=`${starts[i]}，${middles[j]}，${b?bridges[(i+j)%4]+'，':''}${endings[k]}`;
+  wishes.push(phrase);
+}
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function dailyWish(name,date,remaining){
+  const key=`${date.toISOString().slice(0,10)}|${name}|${remaining}`;
+  return wishes[hash(key)%wishes.length];
+}
+const milestones=[
+ [10000,'一万天，是一段很长的旅程。愿你从今天开始，为想要的生活一点点准备。'],
+ [9000,'九千天，未来还有许多可能。愿你心怀期待，也把眼前的日子过得踏实自在。'],
+ [8000,'八千天，已经走过一段路。愿每一次努力，都在为喜欢的生活添砖加瓦。'],
+ [7000,'七千天，离心中的目标又近了一程。愿你有健康的身体，也有自由的心情。'],
+ [6000,'六千天，值得认真期待。愿你在忙碌中留一点时间给自己和所爱的人。'],
+ [5000,'五千天，足够种下许多期待。愿你有计划，也有耐心，把喜欢的生活慢慢变成日常。'],
+ [4000,'四千天，目标又清晰了一些。愿你稳稳走好每一步，未来的生活越来越接近心中所想。'],
+ [3000,'三千天，人生的下一程正在靠近。愿你照顾好身体，也照顾好心里的热爱。'],
+ [2000,'两千天！把远方放进计划，把快乐放进今天。愿未来的你感谢现在认真生活的自己。'],
+ [1000,'一千天，已经能看见期待的轮廓。愿每一步都踏实，每一天都有值得开心的小事。'],
+ [365,'一年以内啦！愿你从容安排接下来的日子，带着期待，也带着满满的好心情。'],
+ [100,'一百天！期待正在变成眼前的日历。愿你平安、健康，顺顺利利迎接新阶段。'],
+ [30,'只剩一个月左右了。愿接下来的每一天都轻松而明亮，给自己一个温柔的拥抱。'],
+ [7,'最后一周！愿所有准备都顺顺当当，愿新的生活有自由、有欢喜、有好风景。'],
+ [1,'明天就是你期待的日子！愿你带着笑容走向人生新篇章，往后岁月自在丰盈。'],
+ [0,'今天到了！祝贺你迎来期待已久的日子。愿往后的每一天，健康、自由、平安、喜乐。']
+];
+function milestoneFor(n){return milestones.find(([d])=>n===d)||null}
+function nearestMilestone(n){return milestones.find(([d])=>n>d&&n>=0)||null}
+function progress(date,remaining){
+  const now=today();const span=Math.max(1,dayDiff(now,date));const total= Math.max(span,365*20);return Math.max(0,Math.min(100,(1-remaining/total)*100));
+}
+function renderOne(name,date,index){
+  const now=today(),n=dayDiff(now,date),label=name|| (index===0?'你':'TA');
+  const isPast=n<0,abs=Math.abs(n),exact=milestoneFor(n);
+  const wish=exact?exact[1]:dailyWish(label,date,n);
+  const next=nearestMilestone(n);
+  const milestone=exact?`<div class="milestone" style="display:block"><b>✦ 特别日子</b><br>${exact[1]}</div>`:(next?`<div class="milestone" style="display:block"><b>✦ 下一个小目标：${next[0].toLocaleString('zh-CN')}天</b><br>再坚持 <b>${(n-next[0]).toLocaleString('zh-CN')} 天</b>，就能抵达这个节点。每靠近一步，都是值得庆祝的小进步。</div>`:'');
+  const number=isPast?abs:n;
+  const title=isPast?'已经超过目标日期':'距离期待的日子';
+  const percent=isPast?100:Math.max(0,Math.min(99,Math.round((1-n/Math.max(n,3650))*100)));
+  return `<article class="result">
+    <div class="result-name">${index===0?'☀':'♡'} ${escapeHtml(label)} · ${title}</div>
+    <div class="big-number">${number.toLocaleString('zh-CN')}<small>天</small></div>
+    <div class="date-line">${isPast?'原定日期：':'期待日期：'}${fmt(date)}　·　${isPast?'新的生活已经开始':'每一天都在靠近'}</div>
+    <div class="progress-wrap"><div class="progress-meta"><span>向往生活的旅程</span><span>${isPast?'已抵达':`继续前进`}</span></div><div class="track"><div class="bar" style="width:${percent}%"></div></div></div>
+    <div class="blessing"><div class="blessing-label">${exact?'MILESTONE WISH':'TODAY’S WISH'}</div>${wish}</div>${milestone}
+  </article>`;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function paint(){
+ const people=[];
+ for(let i=0;i<2;i++){const d=safeDate($(dateInputIds[i]).value);if(d&&(i===0||showSecond))people.push({name:$(nameInputIds[i]).value.trim(),date:d,index:i})}
+ $('results').innerHTML=people.length?people.map(p=>renderOne(p.name,p.date,p.index)).join(''):'<div class="empty">设定好日期后，你的专属倒计时就会出现在这里。<br>也可以把重要的人一起加进来，分享同一份期待。</div>';
+}
+function save(){
+ const d1=safeDate($('date1').value);if(!d1){alert('请先选择你期望的退休日期。');$('date1').focus();return}
+ const data={name1:$('name1').value.trim(),date1:$('date1').value,name2:$('name2').value.trim(),date2:$('date2').value,showSecond};
+ try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){alert('当前浏览器无法保存本地数据，请检查隐私模式或存储权限。')}
+ paint();
+}
+function load(){
+ try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(!x)return;
+ $('name1').value=x.name1||'';$('date1').value=x.date1||'';$('name2').value=x.name2||'';$('date2').value=x.date2||'';showSecond=x.showSecond!==false;
+ }catch(e){}
+ updateToggle();paint();
+}
+function updateToggle(){$('person2').style.display=showSecond?'block':'none';$('addToggle').textContent=showSecond?'隐藏第二个人':'添加第二个人'}
+$('save').addEventListener('click',save);
+$('addToggle').addEventListener('click',()=>{showSecond=!showSecond;updateToggle();saveIfPossible()});
+function saveIfPossible(){try{localStorage.setItem(KEY,JSON.stringify({name1:$('name1').value.trim(),date1:$('date1').value,name2:$('name2').value.trim(),date2:$('date2').value,showSecond}))}catch(e){}paint()}
+$('reset').addEventListener('click',()=>{if(!confirm('确定清除这台设备上保存的姓名和日期吗？'))return;localStorage.removeItem(KEY);nameInputIds.concat(dateInputIds).forEach(id=>$(id).value='');showSecond=true;updateToggle();paint()});
+dateInputIds.concat(nameInputIds).forEach(id=>$(id).addEventListener('change',paint));
+load();
+})();
+</script>
+</body>
+</html>
