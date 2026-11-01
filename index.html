@@ -16,14 +16,14 @@ button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px
 .panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;margin-top:17px;box-shadow:0 8px 28px rgba(48,65,54,.035)}
 .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.panel h2{font-size:16px;margin:0;font-weight:650}.sub{font-size:12px;color:var(--muted)}
 .person{padding:16px 0;border-top:1px solid var(--line)}.person:first-of-type{border-top:0;padding-top:0}.person-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.person-title{font-weight:650;font-size:14px}.pill{font-size:11px;background:#fff0e7;color:#a64a37;border-radius:99px;padding:5px 9px}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 7px 2px}.field input{width:100%;border:1px solid var(--line);background:#fffefa;border-radius:12px;padding:12px 11px;color:var(--ink);outline:none}.field input:focus{border-color:#d98b72;box-shadow:0 0 0 3px #fff0e8}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 7px 2px}.field input{width:100%;border:1px solid var(--line);background:#fffefa;border-radius:12px;padding:12px 11px;color:var(--ink);outline:none}.field input:focus{border-color:#d98b72;box-shadow:0 0 0 3px #fff0e8}.date-parts{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:5px}.date-parts select{min-width:0;width:100%;border:1px solid var(--line);background:#fffefa;border-radius:10px;padding:11px 4px;color:var(--ink);font:inherit;font-size:13px;outline:none}.date-parts select:focus{border-color:#d98b72;box-shadow:0 0 0 3px #fff0e8}.date-value{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
 .actions{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:11px 15px;cursor:pointer;font-size:13px}.primary{background:linear-gradient(135deg,#a71920,#d33c32);color:white;box-shadow:0 5px 14px rgba(177,31,34,.18)}.secondary{background:#fff0e8;color:#a34232}.ghost{background:transparent;color:#a36b35;border:1px solid #ebcba9}.btn:active{transform:scale(.98)}
 .result{margin-top:18px;background:linear-gradient(180deg,#fffefa,#fff4ec);border:1px solid #efd6c5;border-radius:22px;padding:22px;position:relative;overflow:hidden}.result:after{content:"✿";position:absolute;right:18px;top:10px;color:#f3dfca;font-size:55px}
 .result-name{font-size:13px;color:var(--muted);position:relative;z-index:1}.big-number{font-family:Georgia,"Times New Roman",serif;font-size:clamp(48px,12vw,76px);line-height:1.12;color:#c13a2e;letter-spacing:-2px;margin:7px 0 4px;position:relative;z-index:1}.big-number small{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:15px;letter-spacing:0;color:var(--muted);margin-left:5px}.date-line{font-size:13px;color:var(--muted);position:relative;z-index:1}.progress-wrap{margin-top:18px}.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:7px}.track{height:7px;background:#e9e7dd;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#e58a65,#c42b2b);border-radius:99px;transition:width .4s}.blessing{font-family:"Songti SC",STSong,serif;font-size:17px;line-height:1.85;color:#79352e;margin:18px 0 0;padding-top:15px;border-top:1px solid var(--line);position:relative;z-index:1}.blessing-label{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;font-size:10px;letter-spacing:2px;color:#bd8150;margin-bottom:4px}
 .milestone{margin-top:13px;border-radius:13px;background:#fff0df;padding:11px 13px;font-size:12px;color:#96502f;line-height:1.65;display:none}
 .empty{padding:20px;text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
 .footer{text-align:center;font-size:11px;line-height:1.8;color:#b08b80;margin:22px 10px 0}.footer strong{font-weight:600;color:#b34a38}
-@media(max-width:430px){.shell{padding:14px 12px 35px}.hero{padding:28px 21px 25px}.panel{padding:18px}.fields{gap:8px}.field input{padding:11px 9px}}
+@media(max-width:430px){.shell{padding:14px 12px 35px}.hero{padding:28px 21px 25px}.panel{padding:18px}.fields{grid-template-columns:1fr;gap:12px}.date-parts{grid-template-columns:1.2fr 1fr 1fr}.date-parts select{padding:12px 5px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -41,14 +41,28 @@ button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px
       <div class="person-top"><span class="person-title">☀ 我的倒计时</span><span class="pill">必填</span></div>
       <div class="fields">
         <div class="field"><label for="name1">怎么称呼你（选填）</label><input id="name1" maxlength="12" placeholder="例如：自己"></div>
-        <div class="field"><label for="date1">期望退休日期</label><input id="date1" type="date"></div>
+        <div class="field"><label>期望退休日期</label>
+          <div class="date-parts" data-date="date1">
+            <select id="date1Year" aria-label="选择年份"></select>
+            <select id="date1Month" aria-label="选择月份"></select>
+            <select id="date1Day" aria-label="选择日期"></select>
+          </div>
+          <input id="date1" type="date" class="date-value" tabindex="-1" aria-hidden="true">
+        </div>
       </div>
     </div>
     <div class="person" id="person2">
       <div class="person-top"><span class="person-title">♡ 另一个重要的人</span><span class="pill">选填 · 配偶 / 好友</span></div>
       <div class="fields">
         <div class="field"><label for="name2">怎么称呼对方</label><input id="name2" maxlength="12" placeholder="例如：爱人"></div>
-        <div class="field"><label for="date2">对方期望退休日期</label><input id="date2" type="date"></div>
+        <div class="field"><label>对方期望退休日期</label>
+          <div class="date-parts" data-date="date2">
+            <select id="date2Year" aria-label="选择对方年份"></select>
+            <select id="date2Month" aria-label="选择对方月份"></select>
+            <select id="date2Day" aria-label="选择对方日期"></select>
+          </div>
+          <input id="date2" type="date" class="date-value" tabindex="-1" aria-hidden="true">
+        </div>
       </div>
     </div>
     <div class="actions">
@@ -76,6 +90,48 @@ const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth()
 const fmt=d=>`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 const dayDiff=(a,b)=>Math.round((b-a)/86400000);
 const safeDate=s=>{if(!s)return null;const [y,m,d]=s.split('-').map(Number);const x=new Date(y,m-1,d);return x.getFullYear()===y&&x.getMonth()===m-1&&x.getDate()===d?x:null};
+
+// 手机端直接选年、月、日，不必在日历里逐月翻找。
+function daysInMonth(y,m){return new Date(y,m,0).getDate()}
+function pad2(n){return String(n).padStart(2,'0')}
+function initDatePicker(id){
+  const year=$(id+'Year'),month=$(id+'Month'),day=$(id+'Day');
+  const now=new Date(),currentYear=now.getFullYear();
+  year.innerHTML='<option value="">年份</option>'+Array.from({length:151},(_,i)=>currentYear-50+i)
+    .map(y=>`<option value="${y}">${y}年</option>`).join('');
+  month.innerHTML='<option value="">月份</option>'+Array.from({length:12},(_,i)=>`<option value="${i+1}">${i+1}月</option>`).join('');
+  day.innerHTML='<option value="">日期</option>';
+  function refreshDays(preferred){
+    const y=Number(year.value),m=Number(month.value);
+    const max=(y&&m)?daysInMonth(y,m):31;
+    const old=preferred||Number(day.value);
+    day.innerHTML='<option value="">日期</option>'+Array.from({length:max},(_,i)=>`<option value="${i+1}">${i+1}日</option>`).join('');
+    if(old&&old<=max)day.value=String(old);
+  }
+  function sync(){
+    const y=Number(year.value),m=Number(month.value),d=Number(day.value);
+    if(y&&m&&d&&d<=daysInMonth(y,m)){
+      $(id).value=`${y}-${pad2(m)}-${pad2(d)}`;
+    }else{
+      $(id).value='';
+    }
+    $(id).dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  year.addEventListener('change',()=>{refreshDays();sync()});
+  month.addEventListener('change',()=>{refreshDays();sync()});
+  day.addEventListener('change',sync);
+  return {
+    set(value){
+      const d=safeDate(value);
+      if(!d){year.value='';month.value='';day.value='';$(id).value='';return}
+      year.value=String(d.getFullYear());month.value=String(d.getMonth()+1);
+      refreshDays(d.getDate());day.value=String(d.getDate());$(id).value=value;
+    },
+    clear(){year.value='';month.value='';day.value='';$(id).value=''}
+  };
+}
+const datePickers={date1:initDatePicker('date1'),date2:initDatePicker('date2')};
+
 
 // 通过短语词库与模板组合，运行时生成 2,000 条不同祝福，避免在文件中重复存放长文本。
 const starts=['愿你心里有光','愿往后的每一天','愿生活温柔待你','愿你始终保有热爱','愿你的脚步从容','愿平凡的日子里','愿你被美好环绕','愿未来的时光','愿你眼里有风景','愿每一个清晨'];
@@ -146,7 +202,7 @@ function save(){
 }
 function load(){
  try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(!x)return;
- $('name1').value=x.name1||'';$('date1').value=x.date1||'';$('name2').value=x.name2||'';$('date2').value=x.date2||'';showSecond=x.showSecond!==false;
+ $('name1').value=x.name1||'';datePickers.date1.set(x.date1||'');$('name2').value=x.name2||'';datePickers.date2.set(x.date2||'');showSecond=x.showSecond!==false;
  }catch(e){}
  updateToggle();paint();
 }
@@ -154,7 +210,7 @@ function updateToggle(){$('person2').style.display=showSecond?'block':'none';$('
 $('save').addEventListener('click',save);
 $('addToggle').addEventListener('click',()=>{showSecond=!showSecond;updateToggle();saveIfPossible()});
 function saveIfPossible(){try{localStorage.setItem(KEY,JSON.stringify({name1:$('name1').value.trim(),date1:$('date1').value,name2:$('name2').value.trim(),date2:$('date2').value,showSecond}))}catch(e){}paint()}
-$('reset').addEventListener('click',()=>{if(!confirm('确定清除这台设备上保存的姓名和日期吗？'))return;localStorage.removeItem(KEY);nameInputIds.concat(dateInputIds).forEach(id=>$(id).value='');showSecond=true;updateToggle();paint()});
+$('reset').addEventListener('click',()=>{if(!confirm('确定清除这台设备上保存的姓名和日期吗？'))return;localStorage.removeItem(KEY);nameInputIds.forEach(id=>$(id).value='');datePickers.date1.clear();datePickers.date2.clear();showSecond=true;updateToggle();paint()});
 dateInputIds.concat(nameInputIds).forEach(id=>$(id).addEventListener('change',paint));
 load();
 })();
