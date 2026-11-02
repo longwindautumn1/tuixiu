@@ -8,7 +8,7 @@
 <style>
 :root{--ink:#642323;--muted:#9b7770;--gold:#d6a64d;--paper:#fff5ef;--card:#fffdfa;--line:#f0d9cc;--sage:#f8e5dc;--shadow:0 18px 50px rgba(126,35,30,.11)}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;min-height:100vh}
-button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px 48px}
+button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px 48px}.shell{display:flex;flex-direction:column}.hero{order:0}.shell>.panel{order:1}.shell>#results{order:2}.shell>.footer{order:3}body.has-saved .shell>#results{order:1}body.has-saved .shell>.panel{order:2}
 .hero{position:relative;overflow:hidden;border-radius:28px;padding:34px 25px 28px;color:#fff;background:radial-gradient(circle at 88% 12%,rgba(255,214,139,.28),transparent 27%),linear-gradient(135deg,#8f171c 0%,#bd2528 52%,#dc6848 100%);box-shadow:var(--shadow)}
 .hero:before,.hero:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.14);border-radius:50%;width:290px;height:290px;right:-90px;top:-135px}.hero:after{width:210px;height:210px;right:-48px;top:-95px}
 .eyebrow{font-size:12px;letter-spacing:3px;color:#ffe3c7}.hero h1{font-family:"Songti SC",STSong,serif;font-size:clamp(28px,6vw,40px);font-weight:500;letter-spacing:2px;margin:13px 0 8px}.hero p{font-size:14px;line-height:1.8;color:#ffebe0;margin:0;max-width:440px}
@@ -148,26 +148,34 @@ function dailyWish(name,date,remaining){
   const key=`${date.toISOString().slice(0,10)}|${name}|${remaining}`;
   return wishes[hash(key)%wishes.length];
 }
-const milestones=[
- [10000,'一万天，是一段很长的旅程。愿你从今天开始，为想要的生活一点点准备。'],
- [9000,'九千天，未来还有许多可能。愿你心怀期待，也把眼前的日子过得踏实自在。'],
- [8000,'八千天，已经走过一段路。愿每一次努力，都在为喜欢的生活添砖加瓦。'],
- [7000,'七千天，离心中的目标又近了一程。愿你有健康的身体，也有自由的心情。'],
- [6000,'六千天，值得认真期待。愿你在忙碌中留一点时间给自己和所爱的人。'],
- [5000,'五千天，足够种下许多期待。愿你有计划，也有耐心，把喜欢的生活慢慢变成日常。'],
- [4000,'四千天，目标又清晰了一些。愿你稳稳走好每一步，未来的生活越来越接近心中所想。'],
- [3000,'三千天，人生的下一程正在靠近。愿你照顾好身体，也照顾好心里的热爱。'],
- [2000,'两千天！把远方放进计划，把快乐放进今天。愿未来的你感谢现在认真生活的自己。'],
- [1000,'一千天，已经能看见期待的轮廓。愿每一步都踏实，每一天都有值得开心的小事。'],
- [365,'一年以内啦！愿你从容安排接下来的日子，带着期待，也带着满满的好心情。'],
- [100,'一百天！期待正在变成眼前的日历。愿你平安、健康，顺顺利利迎接新阶段。'],
- [30,'只剩一个月左右了。愿接下来的每一天都轻松而明亮，给自己一个温柔的拥抱。'],
- [7,'最后一周！愿所有准备都顺顺当当，愿新的生活有自由、有欢喜、有好风景。'],
- [1,'明天就是你期待的日子！愿你带着笑容走向人生新篇章，往后岁月自在丰盈。'],
- [0,'今天到了！祝贺你迎来期待已久的日子。愿往后的每一天，健康、自由、平安、喜乐。']
-];
+
+const specialWishes={
+  10000:'一万天，是一段很长的旅程。愿你从今天开始，为想要的生活一点点准备。',
+  9000:'九千天，未来还有许多可能。愿你心怀期待，也把眼前的日子过得踏实自在。',
+  8000:'八千天，已经走过一段路。愿每一次努力，都在为喜欢的生活添砖加瓦。',
+  7000:'七千天，离心中的目标又近了一程。愿你有健康的身体，也有自由的心情。',
+  6000:'六千天，值得认真期待。愿你在忙碌中留一点时间给自己和所爱的人。',
+  5000:'五千天，足够种下许多期待。愿你有计划，也有耐心，把喜欢的生活慢慢变成日常。',
+  4000:'四千天，目标又清晰了一些。愿你稳稳走好每一步，未来的生活越来越接近心中所想。',
+  3000:'三千天，人生的下一程正在靠近。愿你照顾好身体，也照顾好心里的热爱。',
+  2000:'两千天！把远方放进计划，把快乐放进今天。愿未来的你感谢现在认真生活的自己。',
+  1000:'一千天，已经能看见期待的轮廓。愿每一步都踏实，每一天都有值得开心的小事。',
+  100:'一百天！期待正在变成眼前的日历。愿你平安、健康，顺顺利利迎接新阶段。',
+  30:'只剩一个月左右了。愿接下来的每一天都轻松而明亮，给自己一个温柔的拥抱。',
+  7:'最后一周！愿所有准备都顺顺当当，愿新的生活有自由、有欢喜、有好风景。',
+  1:'明天就是你期待的日子！愿你带着笑容走向人生新篇章，往后岁月自在丰盈。',
+  0:'今天到了！祝贺你迎来期待已久的日子。愿往后的每一天，健康、自由、平安、喜乐。'
+};
+const milestones=[];
+for(let d=50000;d>=1000;d-=1000){
+  milestones.push([d,specialWishes[d]||`${d.toLocaleString('zh-CN')}天这个小目标，值得为自己鼓掌。愿你继续稳稳向前，离期待的生活越来越近。`]);
+}
+for(let d=900;d>=100;d-=100){
+  milestones.push([d,specialWishes[d]||`${d}天！又完成了一个小小的里程碑。愿你保持期待，也别忘了享受眼前的生活。`]);
+}
+for(const d of [30,7,1,0]) milestones.push([d,specialWishes[d]]);
 function milestoneFor(n){return milestones.find(([d])=>n===d)||null}
-function nearestMilestone(n){return milestones.find(([d])=>n>d&&n>=0)||null}
+function nearestMilestone(n){return milestones.find(([d])=>d<n&&n>=0)||null}
 function progress(date,remaining){
   const now=today();const span=Math.max(1,dayDiff(now,date));const total= Math.max(span,365*20);return Math.max(0,Math.min(100,(1-remaining/total)*100));
 }
@@ -176,7 +184,8 @@ function renderOne(name,date,index){
   const isPast=n<0,abs=Math.abs(n),exact=milestoneFor(n);
   const wish=exact?exact[1]:dailyWish(label,date,n);
   const next=nearestMilestone(n);
-  const milestone=exact?`<div class="milestone" style="display:block"><b>✦ 特别日子</b><br>${exact[1]}</div>`:(next?`<div class="milestone" style="display:block"><b>✦ 下一个小目标：${next[0].toLocaleString('zh-CN')}天</b><br>再坚持 <b>${(n-next[0]).toLocaleString('zh-CN')} 天</b>，就能抵达这个节点。每靠近一步，都是值得庆祝的小进步。</div>`:'');
+  const targetDate=next?new Date(now.getFullYear(),now.getMonth(),now.getDate()+(n-next[0])):null;
+  const milestone=exact?`<div class="milestone" style="display:block"><b>✦ 特别日子</b><br>${exact[1]}</div>`:(next?`<div class="milestone" style="display:block"><b>✦ 下一个小目标：${next[0].toLocaleString('zh-CN')}天</b><br>再坚持 <b>${(n-next[0]).toLocaleString('zh-CN')} 天</b>，预计于 <b>${fmt(targetDate)}</b> 到达这个节点。每靠近一步，都是值得庆祝的小进步。</div>`:'');
   const number=isPast?abs:n;
   const title=isPast?'已经超过目标日期':'距离期待的日子';
   const percent=isPast?100:Math.max(0,Math.min(99,Math.round((1-n/Math.max(n,3650))*100)));
@@ -190,6 +199,7 @@ function renderOne(name,date,index){
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function paint(){
+ document.body.classList.toggle('has-saved',!!safeDate($('date1').value));
  const people=[];
  for(let i=0;i<2;i++){const d=safeDate($(dateInputIds[i]).value);if(d&&(i===0||showSecond))people.push({name:$(nameInputIds[i]).value.trim(),date:d,index:i})}
  $('results').innerHTML=people.length?people.map(p=>renderOne(p.name,p.date,p.index)).join(''):'<div class="empty">设定好日期后，你的专属倒计时就会出现在这里。<br>也可以把重要的人一起加进来，分享同一份期待。</div>';
@@ -201,8 +211,10 @@ function save(){
  paint();
 }
 function load(){
- try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(!x)return;
- $('name1').value=x.name1||'';datePickers.date1.set(x.date1||'');$('name2').value=x.name2||'';datePickers.date2.set(x.date2||'');showSecond=x.showSecond!==false;
+ try{const x=JSON.parse(localStorage.getItem(KEY)||'null');
+ if(x){
+  $('name1').value=x.name1||'';datePickers.date1.set(x.date1||'');$('name2').value=x.name2||'';datePickers.date2.set(x.date2||'');showSecond=x.showSecond!==false;
+ }
  }catch(e){}
  updateToggle();paint();
 }
