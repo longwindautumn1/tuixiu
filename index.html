@@ -167,12 +167,10 @@ const specialWishes={
   0:'今天到了！祝贺你迎来期待已久的日子。愿往后的每一天，健康、自由、平安、喜乐。'
 };
 const milestones=[];
-for(let d=50000;d>=1000;d-=1000){
+for(let d=50000;d>100;d-=100){
   milestones.push([d,specialWishes[d]||`${d.toLocaleString('zh-CN')}天这个小目标，值得为自己鼓掌。愿你继续稳稳向前，离期待的生活越来越近。`]);
 }
-for(let d=900;d>=100;d-=100){
-  milestones.push([d,specialWishes[d]||`${d}天！又完成了一个小小的里程碑。愿你保持期待，也别忘了享受眼前的生活。`]);
-}
+milestones.push([100,specialWishes[100]]);
 for(const d of [30,7,1,0]) milestones.push([d,specialWishes[d]]);
 function milestoneFor(n){return milestones.find(([d])=>n===d)||null}
 function nearestMilestone(n){return milestones.find(([d])=>d<n&&n>=0)||null}
