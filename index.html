@@ -86,6 +86,15 @@ const $=id=>document.getElementById(id);
 const dateInputIds=['date1','date2'];
 const nameInputIds=['name1','name2'];
 let showSecond=true;
+
+let _hmt = _hmt || [];
+(function() {
+  let hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?78085c06a08634c72caf18b80089636f";
+  let s = document.getElementsByTagName("script")[0]; 
+   s.parentNode.insertBefore(hm, s);
+})();
+  
 const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())};
 const fmt=d=>`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 const dayDiff=(a,b)=>Math.round((b-a)/86400000);
