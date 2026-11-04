@@ -87,12 +87,16 @@ const dateInputIds=['date1','date2'];
 const nameInputIds=['name1','name2'];
 let showSecond=true;
 
-let _hmt = _hmt || [];
-(function() {
-  const hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?78085c06a08634c72caf18b80089636f";
-  const s = document.getElementsByTagName("script")[0]; 
-   s.parentNode.insertBefore(hm, s);
+var _hmt = window._hmt || [];
+(function () {
+    const hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?替换为你的百度统计id';
+    hm.defer = true; // defer延迟加载，阻塞页面、减少报错
+    hm.crossOrigin = 'anonymous';
+    const firstScript = document.querySelector('script');
+    if(firstScript && firstScript.parentNode){
+        firstScript.parentNode.insertBefore(hm, firstScript);
+    }
 })();
   
 const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())};
