@@ -25,6 +25,15 @@ button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px
 .footer{text-align:center;font-size:11px;line-height:1.8;color:#b08b80;margin:22px 10px 0}.footer strong{font-weight:600;color:#b34a38}
 @media(max-width:430px){.shell{padding:14px 12px 35px}.hero{padding:28px 21px 25px}.panel{padding:18px}.fields{grid-template-columns:1fr;gap:12px}.date-parts{grid-template-columns:1.2fr 1fr 1fr}.date-parts select{padding:12px 5px;font-size:14px}}
 </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?78085c06a08634c72caf18b80089636f";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </head>
 <body>
 <div class="shell">
@@ -78,7 +87,6 @@ button,input{font:inherit}.shell{max-width:760px;margin:0 auto;padding:22px 18px
   </section>
   <div class="footer">愿你有期待的未来，也有享受当下的能力。<br><strong>来自 GPT 的祝福</strong><br>所有数据和祝福语均在本地运行，无需注册、无需后台。</div>
 </div>
-
 <script>
 (()=>{
 'use strict';
@@ -87,8 +95,6 @@ const $=id=>document.getElementById(id);
 const dateInputIds=['date1','date2'];
 const nameInputIds=['name1','name2'];
 let showSecond=true;
-
-  
 const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())};
 const fmt=d=>`${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
 const dayDiff=(a,b)=>Math.round((b-a)/86400000);
